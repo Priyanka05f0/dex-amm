@@ -107,19 +107,19 @@ The amounts must maintain the current price ratio:
 amountB_required = (amountA * reserveB) / reserveA
 ```
 
-### LP tokens minted proportionally:
+#### LP tokens minted proportionally:
 Withdraw proportional share:
 ```ini
 liquidityMinted = (amountA * totalLiquidity) / reserveA
 ```
 
-### 3. Liquidity Removal:
+#### 3. Liquidity Removal:
 ```ini
 amountA = (liquidityBurned * reserveA) / totalLiquidity
 amountB = (liquidityBurned * reserveB) / totalLiquidity
 ```
 
-### 4. Token Swaps (with 0.3% fee):
+#### 4. Token Swaps (with 0.3% fee):
 The exact formula for output amount:
 ```ini
 amountInWithFee = amountIn * 997
