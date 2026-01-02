@@ -134,7 +134,7 @@ This ensures:
 - Fee remains in pool, benefiting LPs
 - Constant product k slightly increases with each trade
 
---
+---
 
 ## Implementation Guidelines
 
