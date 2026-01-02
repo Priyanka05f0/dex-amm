@@ -33,11 +33,10 @@ describe("DEX", function () {
   });
 
   it("should mint correct LP tokens for first provider", async function () {
-    const tx = await dex.addLiquidity(
+    await dex.addLiquidity(
       ethers.utils.parseEther("100"),
       ethers.utils.parseEther("100")
     );
-    await tx.wait();
 
     const liquidity = await dex.liquidity(owner.address);
     expect(liquidity).to.be.gt(0);
@@ -96,15 +95,11 @@ describe("DEX", function () {
   });
 
   it("should revert on zero liquidity addition", async function () {
-    await expect(
-      dex.addLiquidity(0, 0)
-    ).to.be.reverted;
+    await expect(dex.addLiquidity(0, 0)).to.be.reverted;
   });
 
   it("should revert when removing more liquidity than owned", async function () {
-    await expect(
-      dex.removeLiquidity(100)
-    ).to.be.reverted;
+    await expect(dex.removeLiquidity(100)).to.be.reverted;
   });
 
   /* ------------------ Token Swaps ------------------ */
@@ -160,9 +155,7 @@ describe("DEX", function () {
     });
 
     it("should revert on zero swap amount", async function () {
-      await expect(
-        dex.swapAForB(0)
-      ).to.be.reverted;
+      await expect(dex.swapAForB(0)).to.be.reverted;
     });
 
     it("should handle large swaps with high price impact", async function () {
@@ -266,5 +259,21 @@ describe("DEX", function () {
     await expect(
       dex.swapAForB(ethers.utils.parseEther("1"))
     ).to.emit(dex, "Swap");
+  });
+
+  /* ------------------ Additional Coverage Tests ------------------ */
+
+  describe("Additional Coverage Tests", function () {
+    it("should confirm DEX contract is deployed", async function () {
+      expect(dex.address).to.properAddress;
+    });
+
+    it("should confirm token A has correct symbol", async function () {
+      expect(await tokenA.symbol()).to.equal("TKA");
+    });
+
+    it("should confirm token B has correct symbol", async function () {
+      expect(await tokenB.symbol()).to.equal("TKB");
+    });
   });
 });
